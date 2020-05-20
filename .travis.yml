@@ -21,7 +21,7 @@ fleet_script_packer_tasks : &fleet_script_packer_tasks
           - sudo adduser  $(id -un) libvirtd #ensure that your username is added to the group libvirtd
           - sudo kvm-ok
           - sudo packer validate -syntax-only centos/centos7.json
-          - sudo packer build -var-file=centos/centos7.json
+          - sudo packer build centos/centos7.json
           - echo "============================================="
 fleet_script_vagrant_win_scoop_tasks : &fleet_script_vagrant_win_scoop_tasks
       script:
