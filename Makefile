@@ -10,7 +10,7 @@ validate_packer:
 	#packer validate -syntax-only packer/template.json
 	#packer validate -var-file=packer/ubuntu16.json packer/template.json
 	packer validate -syntax-only centos/centos7.json
-	packer validate -var-file=centos/centos7.json
+	#packer validate -var-file=centos/centos7.json
 
 centos7: roles
 	packer build -var-file=centos/centos7.json
