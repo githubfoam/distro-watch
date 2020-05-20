@@ -44,8 +44,8 @@
     },
     {
       "type": "ansible-local",
-      "playbook_file": "provisioning/deploy.yml",
-      "playbook_dir": "provisioning"
+      "playbook_file": "ansible/playbook.yml",
+      "playbook_dir": "ansible"
     },
     {
       "type": "shell",
