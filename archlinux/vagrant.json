@@ -106,8 +106,8 @@
             "type": "shell",
             "scripts": [
                 "archlinux/provision/postinstall.sh",
-                "provision/virtualbox.sh",
-                "provision/cleanup.sh"
+                "archlinux/provision/virtualbox.sh",
+                "archlinux/provision/cleanup.sh"
             ],
             "execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'",
             "only": ["virtualbox-iso"]
@@ -116,8 +116,8 @@
             "type": "shell",
             "scripts": [
                 "archlinux/provision/postinstall.sh",
-                "provision/qemu.sh",
-                "provision/cleanup.sh"
+                "archlinux/provision/qemu.sh",
+                "archlinux/provision/cleanup.sh"
             ],
             "execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'",
             "only": ["qemu"]
@@ -126,8 +126,8 @@
             "type": "shell",
             "scripts": [
                 "archlinux/provision/postinstall.sh",
-                "provision/vmware.sh",
-                "provision/cleanup.sh"
+                "archlinux/provision/vmware.sh",
+                "archlinux/provision/cleanup.sh"
             ],
             "execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'",
             "only": ["vmware-iso"]
@@ -135,7 +135,7 @@
         {
             "type": "shell",
             "scripts": [
-                "provision/write_zeroes.sh"
+                "archlinux/provision/write_zeroes.sh"
             ],
             "execute_command": "if [ ! -z \"{{user `write_zeroes`}}\" ]; then echo 'vagrant'|sudo -S sh '{{.Path}}'; fi"
         }
