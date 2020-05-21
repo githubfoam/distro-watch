@@ -27,7 +27,7 @@ fleet_script_packer_tasks : &fleet_script_packer_tasks
           # - /usr/libexec/qemu-kvm -h #/usr/libexec/qemu-kvm: No such file or directory
           - sudo cat /usr/bin/kvm
           - qemu-system-x86_64 --version
-          - sudo virsh -c qemu:///system #Libvirtd could connect to
+          # - sudo virsh -c qemu:///system #Libvirtd could connect to, Welcome to virsh, the virtualization interactive terminal
           - ls -l /usr/bin/kvm
           - ls -l /usr/local/bin/qemu-system-x86_64
           - which qemu-system-x86_64
