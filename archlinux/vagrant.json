@@ -7,7 +7,7 @@
         "memory": "1024",
         "cpus": "2",
         "headless": "true",
-        "vagrant_cloud_token": "{{user `vagrant_cloud_token`}}",
+        "vagrant_cloud_token": "{{VAGRANT_CLOUD_TOKEN}}",
         "write_zeroes": "",
         "boot_wait": "60s",
         "mirror": ""
