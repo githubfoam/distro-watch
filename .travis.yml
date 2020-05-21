@@ -48,7 +48,7 @@ fleet_script_packer_tasks : &fleet_script_packer_tasks
           # - sudo packer build -parallel=false archlinux/vagrant.json #build the images in a queue instead of parallel
           # - sudo packer build -only=virtualbox-iso local.json #build process locally without uploading them to the Vagrant cloud
           # - sudo packer build -except=qemu,vmware-iso archlinux/vagrant.json #build for all providers except VMware and Qemu
-          - sudo packer build -only=virtualbox-iso archlinux/vagrant.json #build for only the VirtualBox provider
+          - sudo packer build -only=qemu archlinux/vagrant.json #build for only the VirtualBox provider
           # - sudo packer build centos/centos7.json
           # - sudo packer build -var 'mirror=http://mirror.utexas.edu/fedora/linux' fedora-31-x86_64.json #alternate mirror
           - echo "============================================="
