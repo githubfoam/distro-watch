@@ -24,8 +24,14 @@ fleet_script_packer_tasks : &fleet_script_packer_tasks
           - sudo dpkg -i vagrant_${VAGRANT_VERSION}_x86_64.deb
           - vagrant version
           - echo "============================================="
-          - echo "============================================="
-          - echo "=============Packer building centos 7=============="
+          # - echo "=================================================================================================================="
+          # - echo "================================Installing Packer================================================================"
+          # - sudo wget -nv https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_amd64.zip
+          # - sudo unzip packer_${PACKER_VERSION}_linux_amd64.zip
+          # - sudo cp packer /usr/bin
+          # - stat /usr/bin/packer
+          # - sudo packer --version
+          # - echo "=================================================================================================================="
           - sudo packer validate -syntax-only archlinux/vagrant.json
           # - sudo packer build -parallel=false archlinux/vagrant.json #build the images in a queue instead of parallel
           # - sudo packer build -only=virtualbox-iso local.json #build process locally without uploading them to the Vagrant cloud
