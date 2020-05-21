@@ -1,7 +1,7 @@
 {
     "variables": {
-        "iso_url": "file:///srv/ftp/iso/latest/archlinux-{{isotime \"2006.01\"}}.01-x86_64.iso",
-        "iso_checksum_url": "file:///srv/ftp/iso/latest/sha1sums.txt",
+        "iso_url": "http://ftp.cc.uoc.gr/mirrors/linux/archlinux/iso/2020.05.01/archlinux-2020.05.01-x86_64.iso",
+        "iso_checksum_url": "http://ftp.cc.uoc.gr/mirrors/linux/archlinux/iso/2020.05.01/sha1sums.txt",
         "iso_checksum_type": "sha1",
         "disk_size": "20480",
         "memory": "1024",
@@ -145,28 +145,28 @@
             {
                 "type": "vagrant",
                 "keep_input_artifact": false,
-                "output": "Arch-Linux-x86_64-{{ .Provider }}-{{isotime \"2006-01-02\"}}.box"
+                "output": "Arch-Linux-x86_64-{{ .Provider }}-{{isotime \"2020.05.01\"}}.box"
             },
             {
                 "type": "vagrant-cloud",
                 "only": ["virtualbox-iso"],
                 "access_token": "{{user `vagrant_cloud_token`}}",
                 "box_tag": "vagrantfoam/archlinux",
-                "version": "{{isotime \"2006.01.02\"}}"
+                "version": "{{isotime \"2020.05.01\"}}"
             },
             {
                 "type": "vagrant-cloud",
                 "only": ["qemu"],
                 "access_token": "{{user `vagrant_cloud_token`}}",
                 "box_tag": "vagrantfoam/archlinux",
-                "version": "{{isotime \"2006.01.02\"}}"
+                "version": "{{isotime \"2020.05.01\"}}"
             },
             {
                 "type": "vagrant-cloud",
                 "only": ["vmware-iso"],
                 "access_token": "{{user `vagrant_cloud_token`}}",
                 "box_tag": "vagrantfoam/archlinux",
-                "version": "{{isotime \"2006.01.02\"}}"
+                "version": "{{isotime \"2020.05.01\"}}"
             }
         ]
     ]

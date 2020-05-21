@@ -28,8 +28,7 @@ fleet_script_packer_tasks : &fleet_script_packer_tasks
           - sudo wget -nv https://releases.hashicorp.com/vagrant/${VAGRANT_VERSION}/vagrant_${VAGRANT_VERSION}_x86_64.deb
           - sudo dpkg -i vagrant_${VAGRANT_VERSION}_x86_64.deb
           - vagrant version
-          - echo "============================================="
-          # - echo "=================================================================================================================="
+          - echo "=================================================================================================================="
           # - echo "================================Installing Packer================================================================"
           # - curl -LO "${PACKER_URL}"
           # - curl -LO "${PACKER_SHA256}"
