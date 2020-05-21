@@ -105,7 +105,7 @@
         {
             "type": "shell",
             "scripts": [
-                "provision/postinstall.sh",
+                "archlinux/provision/postinstall.sh",
                 "provision/virtualbox.sh",
                 "provision/cleanup.sh"
             ],
@@ -115,7 +115,7 @@
         {
             "type": "shell",
             "scripts": [
-                "provision/postinstall.sh",
+                "archlinux/provision/postinstall.sh",
                 "provision/qemu.sh",
                 "provision/cleanup.sh"
             ],
@@ -125,7 +125,7 @@
         {
             "type": "shell",
             "scripts": [
-                "provision/postinstall.sh",
+                "archlinux/provision/postinstall.sh",
                 "provision/vmware.sh",
                 "provision/cleanup.sh"
             ],
