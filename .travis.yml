@@ -4,6 +4,7 @@ sudo: required
 env:
   global:
   - VAGRANT_VERSION="2.2.9"
+  - VAGRANT_CLOUD_TOKEN=${VAGRANT_CLOUD_TOKEN}
   - PACKER_CURRENT_VERSION="$(curl -s https://checkpoint-api.hashicorp.com/v1/check/packer | jq -r -M '.current_version')"
   - PACKER_URL="https://releases.hashicorp.com/packer/$PACKER_CURRENT_VERSION/packer_${PACKER_CURRENT_VERSION}_linux_amd64.zip"
   - PACKER_SHA256="https://releases.hashicorp.com/packer/$PACKER_CURRENT_VERSION/packer_${PACKER_CURRENT_VERSION}_SHA256SUMS"
