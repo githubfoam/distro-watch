@@ -27,7 +27,20 @@ fleet_script_packer_tasks : &fleet_script_packer_tasks
           # - /usr/libexec/qemu-kvm -h #/usr/libexec/qemu-kvm: No such file or directory
           - sudo cat /usr/bin/kvm
           - qemu-system-x86_64 --version
-          - /usr/libexec/qemu-kvm -version #/usr/libexec/qemu-kvm: No such file or directory
+          # - echo "============================================="
+          # - echo "=============building qemu=============="
+          # - sudo git clone https://github.com/qemu/qemu.git #Download the QEMU 3.0 source code
+          # - cd qemu && sudo git checkout v3.0.0
+          # - sudo git submodule init
+          # - sudo git submodule update --recursive
+          # - sudo apt-get update && sudo apt-get build-dep qemu -y #Install build dependencies
+          # - sudo ./configure --target-list=x86_64-softmmu --audio-drv-list=alsa,pa #Configure build parameters,build it for your host architecture.
+          # - sudo make #Compile the QEMU binary
+          # - sudo cp x86_64-softmmu/qemu-system-x86_64 /usr/local/bin/qemu3.0-system-x86_64 #Move the binary and BIOS files
+          # - sudo cp -r pc-bios /usr/local/share/qemu #move the BIOS files to their appropriate location
+          # - qemu3.0-system-x86_64 --version
+          # - echo "============================================="
+          # - /usr/libexec/qemu-kvm -version #/usr/libexec/qemu-kvm: No such file or directory
           - sudo packer validate -syntax-only centos/centos7.json
           - sudo packer build centos/centos7.json
           - echo "============================================="
@@ -196,19 +209,20 @@ matrix:
     #     - deactivate
 
 
-    # - name: "Python 2.7 on xenial amd64"
-    #   dist: xenial
-    #   language: python
-    #   python: 2.7
-    #   before_install:
-    #     - pip install virtualenv
-    #     - virtualenv -p $(which python2) ~venvpy2
-    #     - source ~venvpy2/bin/activate
-    #   <<: *fleet_install_tasks
-    #   <<: *fleet_script_tasks
-    #   # <<: *fleet_script_vagrant_tasks
-    #   after_success:
-    #     - deactivate
+    - name: "Python 2.7 on xenial amd64"
+      dist: xenial
+      language: python
+      python: 2.7
+      before_install:
+        - pip install virtualenv
+        - virtualenv -p $(which python2) ~venvpy2
+        - source ~venvpy2/bin/activate
+      <<: *fleet_install_tasks
+      <<: *fleet_script_tasks
+      # <<: *fleet_script_vagrant_tasks
+      <<: *fleet_script_packer_tasks
+      after_success:
+        - deactivate
 
     # - name: "Python 3.7 on xenial arm64"
     #   os: linux
