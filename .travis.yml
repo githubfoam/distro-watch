@@ -19,13 +19,15 @@ fleet_script_packer_tasks : &fleet_script_packer_tasks
           - egrep -c '(vmx|svm)' /proc/cpuinfo #If 0 it means that your CPU doesn't support hardware virtualization.If 1 or more it does - but you still need to make sure that virtualization is enabled in the BIOS.
           - sudo addgroup libvirtd
           - sudo adduser  $(id -un) libvirtd #ensure that your username is added to the group libvirtd
+          - sudo adduser  $(id -un) libvirt-qemu #https://linuxconfig.org/install-and-set-up-kvm-on-ubuntu-18-04-bionic-beaver-linux
           - sudo kvm-ok
           # - sudo qemu-img info #Verify the disk image size and format of the virtual disk
           - cat /usr/bin/kvm
           # - ls -l /usr/libexec/qemu* #cannot access '/usr/libexec/qemu*': No such file or directory
           # - /usr/libexec/qemu-kvm -h #/usr/libexec/qemu-kvm: No such file or directory
           - sudo cat /usr/bin/kvm
-          - /usr/libexec/qemu-kvm -version
+          - qemu-system-x86_64 --version
+          - /usr/libexec/qemu-kvm -version #/usr/libexec/qemu-kvm: No such file or directory
           - sudo packer validate -syntax-only centos/centos7.json
           - sudo packer build centos/centos7.json
           - echo "============================================="
