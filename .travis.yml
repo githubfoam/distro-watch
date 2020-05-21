@@ -21,8 +21,11 @@ fleet_script_packer_tasks : &fleet_script_packer_tasks
           - sudo adduser  $(id -un) libvirtd #ensure that your username is added to the group libvirtd
           - sudo kvm-ok
           # - sudo qemu-img info #Verify the disk image size and format of the virtual disk
-          - ls -l /usr/libexec/qemu*
-          - /usr/libexec/qemu-kvm -h
+          - cat /usr/bin/kvm
+          # - ls -l /usr/libexec/qemu* #cannot access '/usr/libexec/qemu*': No such file or directory
+          # - /usr/libexec/qemu-kvm -h #/usr/libexec/qemu-kvm: No such file or directory
+          - sudo cat /usr/bin/kvm
+          - /usr/libexec/qemu-kvm -version
           - sudo packer validate -syntax-only centos/centos7.json
           - sudo packer build centos/centos7.json
           - echo "============================================="
