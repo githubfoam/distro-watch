@@ -7,7 +7,7 @@
         "memory": "1024",
         "cpus": "2",
         "headless": "true",
-        "vagrant_cloud_token": "09NPtcKfbsD9kw.atlasv1.pQqmAxs5ycNo70ppfgkAgfEM6GXwPYFcjcaNnfzkUdjzRDxv773Liu6fy2rL5OMJCU8",
+        "vagrant_cloud_token": "FAKE_TOKENKEY",
         "write_zeroes": "",
         "boot_wait": "60s",
         "mirror": ""
