@@ -117,12 +117,12 @@ fleet_script_vagrant_tasks : &fleet_script_vagrant_tasks
           - sudo vagrant box add "StefanScherer/windows_10"  --provider=virtualbox
           # - sudo vagrant up --no-parallel --provider=libvirt
           - sudo vagrant mutate "StefanScherer/windows_10"  libvirt
-          - sudo vagrant up  --provider=libvirt
+          # - sudo vagrant up  --provider=libvirt
           - sudo vagrant box list #veridy installed boxes
           - sudo vagrant status #Check the status of the VMs to see that none of them have been created yet
           # - sudo vagrant up --provider=libvirt vg-irods01
           # - sudo vagrant up --no-parallel --provider=libvirt # vagrant serial runs
-          # - travis_wait 30 sudo vagrant up --provider=libvirt
+          - travis_wait 30 sudo vagrant up --provider=libvirt
           - sudo vagrant status
           - sudo vagrant global-status
           # - sudo vagrant ssh "vg-docker-01" -c "hostnamectl"
