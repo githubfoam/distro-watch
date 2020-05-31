@@ -114,10 +114,10 @@ fleet_script_vagrant_tasks : &fleet_script_vagrant_tasks
           - sudo vagrant plugin install vagrant-reload
           - sudo vagrant status
           - sudo virsh list --all #show all running KVM/libvirt VMs
-          - vagrant box add "StefanScherer/windows_10"  --provider=virtualbox
-          - sudo vagrant up --no-parallel --provider=libvirt
+          - sudo vagrant box add "StefanScherer/windows_10"  --provider=virtualbox
+          # - sudo vagrant up --no-parallel --provider=libvirt
+          - sudo vagrant mutate "StefanScherer/windows_10"  libvirt
           - sudo vagrant up  --provider=libvirt
-          - vagrant mutate "StefanScherer/windows_10"  libvirt
           - sudo vagrant box list #veridy installed boxes
           - sudo vagrant status #Check the status of the VMs to see that none of them have been created yet
           # - sudo vagrant up --provider=libvirt vg-irods01
