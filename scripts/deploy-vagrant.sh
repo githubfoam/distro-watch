@@ -39,7 +39,7 @@ vagrant plugin install vagrant-mutate #Convert vagrant boxes to work with differ
 
 # https://github.com/chef/bento/tree/master/packer_templates/ubuntu
 vagrant box add "bento/ubuntu-20.04" --provider=virtualbox
-vagrant mutate "bento/ubuntu-20.040" libvirt
+vagrant mutate "bento/ubuntu-20.04" libvirt
 vagrant up --provider=libvirt vg-zeek-02
 
 # https://app.vagrantup.com/fedora/boxes/32-cloud-base
