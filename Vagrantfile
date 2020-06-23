@@ -26,14 +26,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
               vb.customize ["modifyvm", :id, "--groups", "/zeek-sandbox"] # create vbox group
           end # end of box.vm.providers
 
-          box.vm.provision "ansible_local" do |ansible|
-              # ansible.compatibility_mode = "2.0"
-              ansible.compatibility_mode = server["ansible_compatibility_mode"]
-              ansible.version = server["ansible_version"]
-              ansible.playbook = server["server_bootstrap"]
-              # ansible.inventory_path = 'provisioning/hosts'
-              # ansible.verbose = "vvvv" # debug
-           end # end if box.vm.provision
+          # box.vm.provision "ansible_local" do |ansible|
+          #     # ansible.compatibility_mode = "2.0"
+          #     ansible.compatibility_mode = server["ansible_compatibility_mode"]
+          #     ansible.version = server["ansible_version"]
+          #     ansible.playbook = server["server_bootstrap"]
+          #     # ansible.inventory_path = 'provisioning/hosts'
+          #     # ansible.verbose = "vvvv" # debug
+          #  end # end if box.vm.provision
 
            box.vm.provision "shell", inline: server["server_script"], privileged: false
            # box.vm.provision "shell", inline: <<-SHELL
