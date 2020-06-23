@@ -63,9 +63,9 @@ vagrant box add "fedora/29-atomic-host" --provider=libvirt
 vagrant up --provider=libvirt vg-zeek-05
 
 # https://github.com/chef/bento/tree/master/packer_templates/amazonlinux
-vagrant box add "bento/amazon-2" --provider=virtualbox
-vagrant mutate "bento/amazon-2" libvirt
-vagrant up --provider=libvirt vg-zeek-06
+# vagrant box add "bento/amazon-2" --provider=virtualbox
+# vagrant mutate "bento/amazon-2" libvirt
+# vagrant up --provider=libvirt vg-zeek-06
 
 #https://app.vagrantup.com/centos/boxes/8
 vagrant box add "centos/8" --provider=libvirt
@@ -85,10 +85,6 @@ vagrant up --provider=libvirt vg-zeek-09
 vagrant box add "debian/stretch64" --provider=libvirt
 vagrant up --provider=libvirt vg-zeek-10
 
-# # https://app.vagrantup.com/debian/boxes/buster64
-# It appears your machine doesn't support NFS, or there is not an
-# vagrant box add "debian/buster64" --provider=libvirt
-# vagrant up --provider=libvirt vg-zeek-01
 
 vagrant box list #veridy installed boxes
 vagrant status #Check the status of the VMs to see that none of them have been created yet
