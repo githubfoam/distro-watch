@@ -52,9 +52,11 @@ vagrant box add "fedora/32-cloud-base" --provider=libvirt
 vagrant up --provider=libvirt vg-zeek-03
 
 # https://github.com/chef/bento/tree/master/packer_templates/fedora
-vagrant box add "bento/fedora-32" --provider=virtualbox
-vagrant mutate "bento/fedora-32" libvirt
-vagrant up --provider=libvirt vg-zeek-04
+# https://app.vagrantup.com/bento/boxes/fedora-32
+#The box you're attempting to add doesn't support the provider you requested
+# vagrant box add "bento/fedora-32" --provider=virtualbox
+# vagrant mutate "bento/fedora-32" libvirt
+# vagrant up --provider=libvirt vg-zeek-04
 
 # https://app.vagrantup.com/fedora/boxes/29-atomic-host
 vagrant box add "fedora/29-atomic-host" --provider=libvirt
