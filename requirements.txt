@@ -2,3 +2,5 @@
 testinfra
 pytest
 codecov
+ansible
+paramiko

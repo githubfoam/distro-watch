@@ -1,61 +1,16 @@
 ---
 sudo: required
 
-env:
-  global:
-  - VAGRANT_VERSION="2.2.9"
-  - PACKER_CURRENT_VERSION="$(curl -s https://checkpoint-api.hashicorp.com/v1/check/packer | jq -r -M '.current_version')"
-  - PACKER_URL="https://releases.hashicorp.com/packer/$PACKER_CURRENT_VERSION/packer_${PACKER_CURRENT_VERSION}_linux_amd64.zip"
-  - PACKER_SHA256="https://releases.hashicorp.com/packer/$PACKER_CURRENT_VERSION/packer_${PACKER_CURRENT_VERSION}_SHA256SUMS"
-  - PACKER_SHA256_SIG="https://releases.hashicorp.com/packer/$PACKER_CURRENT_VERSION/packer_${PACKER_CURRENT_VERSION}_SHA256SUMS.sig"
-  - HASHICORP_FINGERPRINT=91a6e7f85d05c65630bef18951852d87348ffc4c
-  - HASHICORP_KEY="https://keybase.io/hashicorp/pgp_keys.asc?fingerprint=${HASHICORP_FINGERPRINT}"
 notifications:
   slack:
     on_failure: always
 
-fleet_script_packer_tasks : &fleet_script_packer_tasks
-      script:
-          - sudo apt-get install -y cpu-checker bridge-utils dnsmasq-base ebtables libvirt-bin libvirt-dev qemu-kvm qemu-utils ruby-dev
-          - sudo systemctl status libvirtd
-          - sudo libvirtd --version
-          - egrep -c '(vmx|svm)' /proc/cpuinfo #If 0 it means that your CPU doesn't support hardware virtualization.If 1 or more it does - but you still need to make sure that virtualization is enabled in the BIOS.
-          - sudo addgroup libvirtd
-          - sudo adduser  $(id -un) libvirtd #ensure that your username is added to the group libvirtd
-          - sudo kvm-ok
-          - echo "============================================="
-          - echo "=============Installing Vagrant=============="
-          - sudo wget -nv https://releases.hashicorp.com/vagrant/${VAGRANT_VERSION}/vagrant_${VAGRANT_VERSION}_x86_64.deb
-          - sudo dpkg -i vagrant_${VAGRANT_VERSION}_x86_64.deb
-          - vagrant version
-          - echo "=================================================================================================================="
-          # - echo "================================Installing Packer================================================================"
-          # - curl -LO "${PACKER_URL}"
-          # - curl -LO "${PACKER_SHA256}"
-          # - curl -LO "${PACKER_SHA256_SIG}"
-          # - wget -Lo hashicorp.key "${HASHICORP_KEY}"
-          # - gpg --with-fingerprint --with-colons hashicorp.key | grep ${HASHICORP_FINGERPRINT^^}
-          # - gpg --import hashicorp.key
-          # - gpg --verify "packer_${PACKER_CURRENT_VERSION}_SHA256SUMS.sig" "packer_${PACKER_CURRENT_VERSION}_SHA256SUMS"
-          # - grep linux_amd64 "packer_${PACKER_CURRENT_VERSION}_SHA256SUMS" >packer_SHA256SUM_linux_amd64
-          # - sha256sum --check --status packer_SHA256SUM_linux_amd64
-          # - unzip "packer_${PACKER_CURRENT_VERSION}_linux_amd64.zip"
-          # - sudo cp packer /usr/bin
-          # - stat /usr/bin/packer
-          # - sudo packer --version
-          # - echo "=================================================================================================================="
-          - sudo packer validate -syntax-only archlinux/vagrant.json
-          # - sudo packer build -parallel=false archlinux/vagrant.json #build the images in a queue instead of parallel
-          # - sudo packer build -only=virtualbox-iso local.json #build process locally without uploading them to the Vagrant cloud
-          # - sudo packer build -except=qemu,vmware-iso archlinux/vagrant.json #build for all providers except VMware and Qemu
-          - sudo packer build -only=qemu archlinux/vagrant.json #build for only the VirtualBox provider
-          # - sudo packer build centos/centos7.json
-          # - sudo packer build -var 'mirror=http://mirror.utexas.edu/fedora/linux' fedora-31-x86_64.json #alternate mirror
-          - echo "============================================="
+
 fleet_script_vagrant_win_scoop_tasks : &fleet_script_vagrant_win_scoop_tasks
       script:
           - echo "============================================="
           - echo "=============Installing Vagrant scoop=============="
+          - echo "============================================="
           # - Set-ExecutionPolicy RemoteSigned -scope CurrentUser
           # - Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
           # - iwr -useb get.scoop.sh | iex # or shorter #The command "iwr -useb get.scoop.sh | iex" exited with 127.
@@ -66,6 +21,7 @@ fleet_script_vagrant_win_tasks : &fleet_script_vagrant_win_tasks
       script:
           - echo "============================================="
           - echo "=============Installing Vagrant chocolatey=============="
+          - echo "============================================="
           # - choco feature disable --name=exitOnRebootDetected #exitOnRebootDetected was disabled by default. Explicitly setting value
           # - choco install vagrant # https://github.com/chocolatey/choco/issues/1927
           # - choco install vagrant --version 2.2.0
@@ -94,53 +50,13 @@ fleet_script_vagrant_macos_tasks : &fleet_script_vagrant_macos_tasks
           - vagrant global-status
           # - vagrant ssh -c "hostnamectl"
           - echo "============================================="
-fleet_script_vagrant_tasks : &fleet_script_vagrant_tasks
-      script:
-          - sudo apt-get install -y cpu-checker bridge-utils dnsmasq-base ebtables libvirt-bin libvirt-dev qemu-kvm qemu-utils ruby-dev
-          - sudo systemctl status libvirtd
-          - sudo libvirtd --version
-          - egrep -c '(vmx|svm)' /proc/cpuinfo #If 0 it means that your CPU doesn't support hardware virtualization.If 1 or more it does - but you still need to make sure that virtualization is enabled in the BIOS.
-          - sudo addgroup libvirtd
-          - sudo adduser  $(id -un) libvirtd #ensure that your username is added to the group libvirtd
-          - sudo kvm-ok
-          - echo "============================================="
-          - echo "=============Installing Vagrant=============="
-          - sudo wget -nv https://releases.hashicorp.com/vagrant/${VAGRANT_VERSION}/vagrant_${VAGRANT_VERSION}_x86_64.deb
-          - sudo dpkg -i vagrant_${VAGRANT_VERSION}_x86_64.deb
-          - vagrant version
-          - echo "============================================="
-          - sudo vagrant plugin install vagrant-libvirt #The vagrant-libvirt plugin is required when using KVM on Linux
-          - sudo vagrant plugin install vagrant-mutate #Convert vagrant boxes to work with different providers
-          - sudo vagrant plugin install vagrant-reload
-          - sudo vagrant status
-          - sudo virsh list --all #show all running KVM/libvirt VMs
-          - sudo vagrant box add "StefanScherer/windows_10"  --provider=virtualbox
-          # - sudo vagrant up --no-parallel --provider=libvirt
-          - sudo vagrant mutate "StefanScherer/windows_10"  libvirt
-          # - sudo vagrant up  --provider=libvirt
-          - sudo vagrant box list #veridy installed boxes
-          - sudo vagrant status #Check the status of the VMs to see that none of them have been created yet
-          # - sudo vagrant up --provider=libvirt vg-irods01
-          # - sudo vagrant up --no-parallel --provider=libvirt # vagrant serial runs
-          - travis_wait 40 sudo vagrant up --provider=libvirt
-          - sudo vagrant status
-          - sudo vagrant global-status
-          # - sudo vagrant ssh "vg-docker-01" -c "hostnamectl"
-          - sudo vagrant ssh  -c "choco install -y docker-desktop"
-          - sudo virsh list --all #show all running KVM/libvirt VMs
-fleet_script_tasks : &fleet_script_tasks
-      script:
-        - python --version
-fleet_install_tasks : &fleet_install_tasks
-      install:
-        - pip install -r requirements.txt
 
 
 matrix:
   fast_finish: true
   include:
 
-    - name: "windows_10 Python 3.7 on bionic amd64"
+    - name: "Python 3.7 on bionic amd64"
       dist: bionic
       language: python
       python: 3.7
@@ -148,10 +64,9 @@ matrix:
         - pip3 install virtualenv
         - virtualenv -p $(which python3) ~venvpy3
         - source ~venvpy3/bin/activate
-      <<: *fleet_install_tasks
-      <<: *fleet_script_tasks
-      <<: *fleet_script_vagrant_tasks
-
+        - pip install -r requirements.txt
+      script:
+        - sudo make deploy-vagrant
       after_success:
         - deactivate
 
