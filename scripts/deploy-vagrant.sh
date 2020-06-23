@@ -37,6 +37,11 @@ echo "=============================Install Vagrant==============================
 vagrant plugin install vagrant-libvirt #The vagrant-libvirt plugin is required when using KVM on Linux
 vagrant plugin install vagrant-mutate #Convert vagrant boxes to work with different providers
 
+# https://github.com/chef/bento/tree/master/packer_templates/debian
+vagrant box add "bento/debian-10.4" --provider=virtualbox
+vagrant mutate "bento/debian-10.4"  libvirt
+vagrant up --provider=libvirt vg-zeek-01
+
 # https://github.com/chef/bento/tree/master/packer_templates/ubuntu
 vagrant box add "bento/ubuntu-20.04" --provider=virtualbox
 vagrant mutate "bento/ubuntu-20.04" libvirt
@@ -68,15 +73,20 @@ vagrant up --provider=libvirt vg-zeek-07
 vagrant box add "centos/atomic-host" --provider=libvirt
 vagrant up --provider=libvirt vg-zeek-08
 
+# https://www.debian.org/releases/
+# https://app.vagrantup.com/debian/boxes/buster64
+vagrant box add "debian/buster64" --provider=libvirt
+vagrant up --provider=libvirt vg-zeek-09
+
+# https://www.debian.org/releases/
+# https://app.vagrantup.com/debian/boxes/stretch64
+vagrant box add "debian/stretch64" --provider=libvirt
+vagrant up --provider=libvirt vg-zeek-10
+
 # # https://app.vagrantup.com/debian/boxes/buster64
 # It appears your machine doesn't support NFS, or there is not an
 # vagrant box add "debian/buster64" --provider=libvirt
 # vagrant up --provider=libvirt vg-zeek-01
-
-# https://github.com/chef/bento/tree/master/packer_templates/debian
-vagrant box add "bento/debian-10.4" --provider=virtualbox
-vagrant mutate "bento/debian-10.4"  libvirt
-vagrant up --provider=libvirt vg-zeek-01
 
 vagrant box list #veridy installed boxes
 vagrant status #Check the status of the VMs to see that none of them have been created yet
