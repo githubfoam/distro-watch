@@ -1,59 +1,49 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-$script = <<SCRIPT
-Write-Host "Enabling Hyper-V and Containers feature."
-Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All -NoRestart
-Enable-WindowsOptionalFeature -Online -FeatureName Containers -All -NoRestart
-. sc.exe config winrm start= delayed-auto
-SCRIPT
+Vagrant.require_version ">= 1.6.0"
+VAGRANTFILE_API_VERSION = "2"
+# YAML module for reading box configurations.
+require 'yaml'
+#  server configs from YAML/YML file
+servers_list = YAML.load_file(File.join(File.dirname(__FILE__), 'provisioning/servers_list.yml'))
 
-$script2 = <<SCRIPT2
-. sc.exe config winrm start= auto
-iwr -useb https://chocolatey.org/install.ps1 | iex
-choco install -y docker-desktop -pre -version 2.0.3.0-edge
-SCRIPT2
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+ # Disable updates
+ config.vm.box_check_update = false
 
-Vagrant.configure("2") do |config|
-  config.vm.box = "StefanScherer/windows_10"
-  config.vm.network :forwarded_port, guest: 5985, host: 5985, id: "winrm", auto_correct: true
+      servers_list.each do |server|
+        config.vm.define server["vagrant_box_host"] do |box|
+          box.vm.box = server["vagrant_box"]
+          box.vm.hostname = server["vagrant_box_host"]
+          box.vm.network server["network_type"], ip: server["vagrant_box_ip"]
+          box.vm.network "forwarded_port", guest: server["guest_port"], host: server["host_port"]
+          box.vm.provider "virtualbox" do |vb|
+              vb.name = server["vbox_name"]
+              vb.memory = server["vbox_ram"]
+              vb.cpus = server["vbox_cpu"]
+              vb.gui = false
+              vb.customize ["modifyvm", :id, "--groups", "/zeek-sandbox"] # create vbox group
+          end # end of box.vm.providers
 
-  config.vm.communicator = "winrm"
+          box.vm.provision "ansible_local" do |ansible|
+              # ansible.compatibility_mode = "2.0"
+              ansible.compatibility_mode = server["ansible_compatibility_mode"]
+              ansible.version = server["ansible_version"]
+              ansible.playbook = server["server_bootstrap"]
+              # ansible.inventory_path = 'provisioning/hosts'
+              # ansible.verbose = "vvvv" # debug
+           end # end if box.vm.provision
 
-  config.winrm.username = "vagrant"
-  config.winrm.password = "vagrant"
+           box.vm.provision "shell", inline: server["server_script"], privileged: false
+           # box.vm.provision "shell", inline: <<-SHELL
+           # echo "======================================================================================="
+           # hostnamectl status
+           # echo "======================================================================================="
+           # SHELL
 
-  config.vm.guest = :windows
-  config.windows.halt_timeout = 15
+        end # end of config.vm
 
-  config.vm.provision "shell", inline: $script, privileged: false
-  config.vm.provision "reload"
-  config.vm.provision "shell", inline: $script2, privileged: true, powershell_elevated_interactive: true
-  config.vm.provision "reload"
+      end  # end of servers_list.each loop
 
-  ["vmware_fusion", "vmware_workstation"].each do |provider|
-    config.vm.provider provider do |v, override|
-      v.gui = true
-      v.memory = "5120"
-      v.cpus = "2"
-      v.vmx["vhv.enable"] = "TRUE"
-    end
-  end
-
-  config.vm.provider "vmware_fusion" do |v|
-    v.vmx["gui.fitguestusingnativedisplayresolution"] = "TRUE"
-    v.vmx["mks.enable3d"] = "TRUE"
-    v.vmx["mks.forceDiscreteGPU"] = "TRUE"
-    v.vmx["gui.fullscreenatpoweron"] = "TRUE"
-    v.vmx["gui.viewmodeatpoweron"] = "fullscreen"
-    v.vmx["gui.lastPoweredViewMode"] = "fullscreen"
-    v.enable_vmrun_ip_lookup = false
-  end
-
-  config.vm.provider "virtualbox" do |v|
-    v.gui = true
-    v.memory = "5120"
-    v.cpus = "2"
-    v.linked_clone = true
-  end
-end
+end # end of Vagrant.configure
