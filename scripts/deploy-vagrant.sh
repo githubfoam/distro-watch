@@ -42,14 +42,31 @@ vagrant box add "bento/ubuntu-20.04" --provider=virtualbox
 vagrant mutate "bento/ubuntu-20.040" libvirt
 vagrant up --provider=libvirt vg-zeek-02
 
-https://app.vagrantup.com/fedora/boxes/32-cloud-base
+# https://app.vagrantup.com/fedora/boxes/32-cloud-base
 vagrant box add "fedora/32-cloud-base" --provider=libvirt
 vagrant up --provider=libvirt vg-zeek-03
 
-#https://app.vagrantup.com/centos/boxes/7 by default libvirt support
-# vagrant box add "centos/7" --provider=libvirt
+# https://github.com/chef/bento/tree/master/packer_templates/fedora
+vagrant box add "bento/fedora-32" --provider=virtualbox
+vagrant mutate "bento/fedora-32" libvirt
+vagrant up --provider=libvirt vg-zeek-04
 
+# https://app.vagrantup.com/fedora/boxes/29-atomic-host
+vagrant box add "fedora/29-atomic-host" --provider=libvirt
+vagrant up --provider=libvirt vg-zeek-05
 
+# https://github.com/chef/bento/tree/master/packer_templates/amazonlinux
+vagrant box add "bento/amazon-2" --provider=virtualbox
+vagrant mutate "bento/amazon-2" libvirt
+vagrant up --provider=libvirt vg-zeek-06
+
+#https://app.vagrantup.com/centos/boxes/8
+vagrant box add "centos/8" --provider=libvirt
+vagrant up --provider=libvirt vg-zeek-07
+
+#https://app.vagrantup.com/centos/boxes/atomic-host
+vagrant box add "centos/atomic-host" --provider=libvirt
+vagrant up --provider=libvirt vg-zeek-08
 
 # # https://app.vagrantup.com/debian/boxes/buster64
 # It appears your machine doesn't support NFS, or there is not an
