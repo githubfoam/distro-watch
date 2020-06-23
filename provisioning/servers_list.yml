@@ -28,7 +28,7 @@
   ansible_compatibility_mode: "2.0"
 
 - vagrant_box_host: "vg-zeek-03"
-  vagrant_box: "bento/fedora-32"
+  vagrant_box: "fedora/32-cloud-base"
   vbox_name: "vbox-zeek-03"
   vbox_ram: 2048
   vbox_cpu: 2
