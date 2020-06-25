@@ -59,31 +59,31 @@ vagrant up --provider=libvirt vg-zeek-03
 # vagrant up --provider=libvirt vg-zeek-04
 
 # https://app.vagrantup.com/fedora/boxes/29-atomic-host
-vagrant box add "fedora/29-atomic-host" --provider=libvirt
-vagrant up --provider=libvirt vg-zeek-05
+# vagrant box add "fedora/29-atomic-host" --provider=libvirt
+# vagrant up --provider=libvirt vg-zeek-05
 
 # https://github.com/chef/bento/tree/master/packer_templates/amazonlinux
 # vagrant box add "bento/amazon-2" --provider=virtualbox
 # vagrant mutate "bento/amazon-2" libvirt
 # vagrant up --provider=libvirt vg-zeek-06
 
-#https://app.vagrantup.com/centos/boxes/8
-vagrant box add "centos/8" --provider=libvirt
-vagrant up --provider=libvirt vg-zeek-07
-
-#https://app.vagrantup.com/centos/boxes/atomic-host
-vagrant box add "centos/atomic-host" --provider=libvirt
-vagrant up --provider=libvirt vg-zeek-08
-
-# https://www.debian.org/releases/
-# https://app.vagrantup.com/debian/boxes/buster64
-vagrant box add "debian/buster64" --provider=libvirt
-vagrant up --provider=libvirt vg-zeek-09
-
-# https://www.debian.org/releases/
-# https://app.vagrantup.com/debian/boxes/stretch64
-vagrant box add "debian/stretch64" --provider=libvirt
-vagrant up --provider=libvirt vg-zeek-10
+# #https://app.vagrantup.com/centos/boxes/8
+# vagrant box add "centos/8" --provider=libvirt
+# vagrant up --provider=libvirt vg-zeek-07
+#
+# #https://app.vagrantup.com/centos/boxes/atomic-host
+# vagrant box add "centos/atomic-host" --provider=libvirt
+# vagrant up --provider=libvirt vg-zeek-08
+#
+# # https://www.debian.org/releases/
+# # https://app.vagrantup.com/debian/boxes/buster64
+# vagrant box add "debian/buster64" --provider=libvirt
+# vagrant up --provider=libvirt vg-zeek-09
+#
+# # https://www.debian.org/releases/
+# # https://app.vagrantup.com/debian/boxes/stretch64
+# vagrant box add "debian/stretch64" --provider=libvirt
+# vagrant up --provider=libvirt vg-zeek-10
 
 
 vagrant box list #veridy installed boxes
