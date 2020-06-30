@@ -1,0 +1,58 @@
+{
+  "builders": [
+    {
+      "name": "template-centos7-x86_64",
+      "type": "qemu",
+      "format": "qcow2",
+      "accelerator": "kvm",
+      "qemu_binary": "/usr/bin/qemu-kvm",
+      "net_device": "virtio-net",
+      "disk_interface": "virtio",
+      "disk_cache": "none",
+
+      "qemuargs": [[ "-m", "2048M" ],[ "-smp", "2" ]],
+
+      "ssh_wait_timeout": "30m",
+
+      "ssh_username": "root",
+      "ssh_password": "root",
+      "iso_urls": "https://mirror.csclub.uwaterloo.ca/centos/7.8.2003/isos/x86_64/CentOS-7-x86_64-DVD-2003.iso",
+      "iso_checksum": "087a5743dc6fd6706d9b961b8147423ddc029451b938364c760d75440eb7be14",
+      "iso_checksum_type": "sha256",
+
+      "boot_command": [
+        "<tab> net.ifnames=0 biosdevname=0 text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos7-kickstart.cfg<enter><wait>"
+      ],
+
+      "disk_size": "10240",
+
+      "headless": "false",
+      "http_directory": ".",
+      "shutdown_command": "sudo /usr/sbin/shutdown -h now",
+      "output_directory": "artifacts/qemu"
+    }
+  ],
+
+  "provisioners": [
+    {
+      "type": "shell",
+      "execute_command": "{{ .Vars }} sudo -E bash '{{ .Path }}'",
+      "inline": [
+        "yum -y install epel-release",
+        "yum -y install ansible"
+      ]
+    },
+    {
+      "type": "ansible-local",
+      "playbook_file": "centos/ansible/playbook.yml",
+      "playbook_dir": "centos/ansible"
+    },
+    {
+      "type": "shell",
+      "execute_command": "{{ .Vars }} sudo -E bash '{{ .Path }}'",
+      "inline": [
+        "yum -y autoremove ansible"
+      ]
+    }
+  ]
+}

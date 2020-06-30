@@ -1,0 +1,30 @@
+---
+
+- name: AIRFLOW | Manage backend
+  import_tasks: postgresql.yml
+  tags:
+    - update-airflow-backend
+  delegate_to: "{{ groups['postgresql'][0] }}"
+
+- name: AIRFLOW | Manage installation
+  import_tasks: install.yml
+  tags:
+    - update-airflow-install
+
+- name: AIRFLOW | Manage configuration
+  import_tasks: config.yml
+  tags:
+    - update-airflow-config
+
+- name: AIRFLOW | MAnage service
+  import_tasks: service.yml
+  tags:
+    - update-airflow-service
+
+- name: AIRFLOW | Manage users
+  run_once: true
+  import_tasks: users.yml
+  become: true
+  become_user: "{{ airflow_user }}"
+  tags:
+    - update-airflow-users

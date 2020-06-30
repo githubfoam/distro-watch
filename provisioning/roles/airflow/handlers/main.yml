@@ -1,0 +1,29 @@
+---
+
+- name: Restart airflow-webserver
+  systemd:
+    name: airflow-webserver
+    state: restarted
+    daemon_reload: yes
+    enabled: yes
+
+- name: Restart airflow-scheduler
+  systemd:
+    name: airflow-scheduler
+    state: restarted
+    daemon_reload: yes
+    enabled: yes
+
+- name: Restart airflow-worker
+  systemd:
+    name: airflow-worker
+    state: restarted
+    daemon_reload: yes
+    enabled: yes
+
+- name: Restart airflow-flower
+  systemd:
+    name: airflow-flower
+    state: restarted
+    daemon_reload: yes
+    enabled: yes

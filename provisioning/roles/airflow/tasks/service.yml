@@ -1,0 +1,19 @@
+---
+
+- name: AIRFLOW SERVICE | Deploy daemon scripts
+  template:
+    src: "lib/systemd/system/{{ item }}.service.j2"
+    dest: /lib/systemd/system/{{ item }}.service
+    mode: 0644
+  notify: Restart {{ item }}
+  with_items: "{{ airflow_services }}"
+
+- name: AIRFLOW SERVICE | Deploy systemd conf file
+  template:
+    src: "etc/tmpfiles.d/airflow.conf.j2"
+    dest: "/etc/tmpfiles.d/airflow.conf"
+    owner: "root"
+    group: "root"
+    mode: 0644
+  notify: Restart {{ item }}
+  with_items: "{{ airflow_services }}"

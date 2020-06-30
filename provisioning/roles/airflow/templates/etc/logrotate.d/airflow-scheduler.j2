@@ -1,0 +1,12 @@
+# {{ ansible_managed }}
+{{ airflow_logs_folder }}/scheduler/*/*.log {
+    daily
+    missingok
+    rotate 7
+    size 500M
+    compress
+    notifempty
+    sharedscripts
+    postrotate
+    endscript
+}

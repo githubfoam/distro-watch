@@ -1,0 +1,48 @@
+---
+
+- name: Install prerequisites packages
+  apt:
+    name: python-pip
+    state: present
+
+- name: Add repository key
+  apt_key:
+    url: "{{ postgres_apt_key }}"
+    state: present
+
+- name: Add PostgreSQL repository
+  apt_repository:
+    repo: "{{ postgres_apt_url }}"
+    state: present
+
+- name: Install postgresql package
+  apt:
+    name: "postgresql-{{ postgres_version }}"
+    state: present
+    update_cache: yes
+
+- name: Install psycopg2 python module
+  pip:
+    name: psycopg2-binary
+    state: present
+
+- name: Configure Postgres security
+  template:
+    src: "etc/postgresql/{{ postgres_version }}/main/pg_hba.conf.j2"
+    dest: "/etc/postgresql/{{ postgres_version }}/main/pg_hba.conf"
+    owner: postgres
+    group: postgres
+    mode: 0644
+  notify: restart postgresql
+
+- name: Configure Postgres
+  template:
+    src: "etc/postgresql/{{ postgres_version }}/main/postgresql.conf.j2"
+    dest: "/etc/postgresql/{{ postgres_version }}/main/postgresql.conf"
+    owner: postgres
+    group: postgres
+    mode: 0644
+  notify: reload postgresql
+
+- name: make sure all handlers run
+  meta: flush_handlers
