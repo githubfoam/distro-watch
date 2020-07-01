@@ -16,8 +16,9 @@ vagrant version
 # vagrant cloud auth login --check #Check if the current user is authenticated
 # vagrant cloud auth logout
 
-echo "$VAGRANT_TEST_TOKEN" | docker login -u "$VAGRANT_USERNAME" --password-stdin
+vagrant cloud auth login --username --debug "$VAGRANT_USERNAME" --token $VAGRANT_TEST_TOKEN
 vagrant cloud auth whoami
+vagrant cloud auth logout
 # echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
 # cd archlinux &&sudo packer build -debug -only=qemu -var-file=local.json vagrant.json
