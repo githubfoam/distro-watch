@@ -16,10 +16,12 @@ vagrant version
 # vagrant cloud auth login --check #Check if the current user is authenticated
 # vagrant cloud auth logout
 
+echo $VAGRANT_TEST_TOKEN > ~/.vagrant.d/data/vagrant_login_token
+
 #Validate a token
-curl \
-		 --header "Authorization: Bearer $VAGRANT_TEST_TOKEN" \
-  	 https://app.vagrantup.com/api/v1/authenticate
+# curl \
+# 		 --header "Authorization: Bearer $VAGRANT_TEST_TOKEN" \
+#   	 https://app.vagrantup.com/api/v1/authenticate
 
 # vagrant cloud auth login --username --debug "$VAGRANT_USERNAME" --token $VAGRANT_TEST_TOKEN
 # vagrant cloud auth whoami
