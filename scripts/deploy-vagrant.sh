@@ -13,7 +13,7 @@ vagrant version
 export VAGRANT_BOX_VERSION="0.1"
 export VAGRANT_BOX_DESCRIPTION="bester"
 # vagrant cloud auth login --token $VAGRANT_CLOUD_TOKEN #Securely authenticate with Vagrant Cloud using a token
-vagrant cloud auth login --username vagrantfoam
+vagrant cloud auth login --username vagrantfoam --token
 vagrant cloud auth whoami
 vagrant cloud auth login --check #Check if the current user is authenticated
 vagrant cloud auth logout
