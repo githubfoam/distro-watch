@@ -85,7 +85,7 @@
       {
         "type": "vagrant-cloud",
         "box_tag": "vagrantfoam/vyos",
-        "access_token": "{{ user `vagrant_cloud_token` }}",
+        "access_token": "{{ user `VAGRANT_CLOUD_TOKEN` }}",
         "version": "{{ user `version` }}",
         "version_description": "{{ user `version_description` }}"
       }
