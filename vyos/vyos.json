@@ -1,0 +1,94 @@
+{
+  "variables": {
+    "vagrant_cloud_token": "{{ env `VAGRANT_CLOUD_TOKEN` }}",
+    "version": "{{ env `VAGRANT_BOX_VERSION` }}",
+    "version_description": "{{ env `VAGRANT_BOX_DESCRIPTION` }}"
+  },
+  "builders": [
+    {
+      "type": "virtualbox-iso",
+      "boot_wait": "5s",
+      "boot_command": [
+        "<enter><wait10><wait10>",
+        "vyos<enter><wait>",
+        "vyos<enter><wait>",
+        "install system<enter><wait>",
+        "<enter><wait>",
+        "<enter><wait>",
+        "<enter><wait>",
+        "Yes<enter><wait>",
+        "<enter><wait10><wait10><wait10><wait10>",
+        "<enter><wait>",
+        "vagrant<enter><wait>",
+        "vagrant<enter><wait>",
+        "<enter><wait5>",
+        "reboot<enter><wait>",
+        "Yes<enter><wait10><wait10><wait10><wait10><wait10><wait5>",
+        "vyos<enter><wait>",
+        "vagrant<enter><wait>",
+        "configure<enter><wait>",
+        "set interfaces ethernet eth0 address dhcp<enter><wait>",
+        "set system login user vagrant authentication plaintext-password vagrant<enter><wait>",
+        "set system login user vagrant level admin<enter><wait>",
+        "set service ssh<enter><wait>",
+        "delete system console<enter><wait>",
+        "commit<enter><wait>",
+        "save<enter><wait>",
+        "exit<enter><wait>",
+        "exit<enter><wait5>",
+        "vagrant<enter><wait>",
+        "vagrant<enter><wait>",
+        "configure<enter><wait>",
+        "delete system login user vyos<enter><wait>",
+        "commit<enter><wait>",
+        "save<enter><wait>",
+        "exit<enter><wait>"
+      ],
+      "disk_size": 2048,
+      "guest_os_type": "Debian_64",
+      "headless": true,
+      "iso_url": "iso/vyos-1.1.8-amd64.iso",
+      "iso_checksum": "e2f0f22504937f64e92aa22ca66a224110f195817664bbd9dc77782c8c2fa0b0",
+      "iso_checksum_type": "sha256",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_timeout": "15m",
+      "shutdown_command": "sudo poweroff",
+      "output_directory": "boxes",
+      "vm_name": "packer-vyos-amd64",
+      "vboxmanage": [
+        [ "modifyvm", "{{ .Name }}", "--memory", "512" ],
+        [ "modifyvm", "{{ .Name }}", "--cpus", "1" ]
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "script": "scripts/configure.sh"
+    },
+    {
+      "type": "shell",
+      "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -E -S bash -c '{{ .Path }}'",
+      "scripts": [
+        "scripts/vbox_guest_additions.sh",
+        "scripts/cleanup.sh"
+      ]
+    }
+  ],
+  "post-processors": [
+    [
+      {
+        "output": "builds/{{ .Provider }}-vyos.box",
+        "type": "vagrant"
+      },
+      {
+        "type": "vagrant-cloud",
+        "box_tag": "vagrantfoam/vyos",
+        "access_token": "{{ user `vagrant_cloud_token` }}",
+        "version": "{{ user `version` }}",
+        "version_description": "{{ user `version_description` }}"
+      }
+    ]
+  ]
+}

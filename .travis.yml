@@ -66,7 +66,10 @@ matrix:
         - source ~venvpy3/bin/activate
         - pip install -r requirements.txt
       script:
-        - sudo make deploy-vagrant
+        # - sudo make deploy-vagrant
+        - export VAGRANT_BOX_VERSION="0.1"
+        - export VAGRANT_BOX_DESCRIPTION="bester"
+        - cd vyos && packer build -var-file=vyos.json
       after_success:
         - deactivate
 

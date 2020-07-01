@@ -1,0 +1,4 @@
+{
+  "vagrant_cloud_token": "Your Vagrant Cloud private API token",
+  "vagrant_cloud_username": "Your Vagrant Cloud username"
+}
