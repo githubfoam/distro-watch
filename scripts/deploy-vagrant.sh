@@ -25,4 +25,4 @@ vagrant cloud auth logout
 
 # cd vyos && packer build -var-file=vars.json vyos.json
 # cd vyos && packer build -debug -var-file=vars.json vyos.json
-cd vyos && packer build -debug vyos.json
+# cd vyos && packer build -debug vyos.json
