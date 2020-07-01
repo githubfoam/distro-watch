@@ -16,6 +16,7 @@ vagrant version
 # vagrant cloud auth login --check #Check if the current user is authenticated
 # vagrant cloud auth logout
 
+rm -rf ~/.vagrant.d/data/vagrant_login_token
 vagrant login --token $VAGRANT_TEST_TOKEN
 vagrant cloud auth whoami
 #echo $TEST_TOKEN > ~/.vagrant.d/data/vagrant_login_token
