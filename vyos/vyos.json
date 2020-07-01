@@ -1,8 +1,8 @@
 {
   "variables": {
-    "vagrant_cloud_token": "{{ env `VAGRANT_CLOUD_TOKEN` }}",
-    "version": "{{ env `VAGRANT_BOX_VERSION` }}",
-    "version_description": "{{ env `VAGRANT_BOX_DESCRIPTION` }}"
+    "vagrant_cloud_token": "{{ env `VAGRANT_CLOUD_TOKEN` }}",  
+    "version": "1.1.1",
+    "version_description": "- VyOS 1.1.8\n- - VirtualBox Guest Additions 5.2.6"
   },
   "builders": [
     {
@@ -85,7 +85,7 @@
       {
         "type": "vagrant-cloud",
         "box_tag": "vagrantfoam/vyos",
-        "access_token": "{{ user `VAGRANT_CLOUD_TOKEN` }}",
+        "access_token": "{{ user `vagrant_cloud_token` }}",
         "version": "{{ user `version` }}",
         "version_description": "{{ user `version_description` }}"
       }

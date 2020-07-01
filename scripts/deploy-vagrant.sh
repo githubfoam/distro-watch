@@ -10,8 +10,6 @@ wget -nv https://releases.hashicorp.com/vagrant/${VAGRANT_CURRENT_VERSION}/vagra
 dpkg -i vagrant_${VAGRANT_CURRENT_VERSION}_x86_64.deb
 vagrant version
 
-export VAGRANT_BOX_VERSION="0.1"
-export VAGRANT_BOX_DESCRIPTION="bester"
 # vagrant cloud auth login --token $VAGRANT_CLOUD_TOKEN #Securely authenticate with Vagrant Cloud using a token
 # vagrant cloud auth login --username vagrantfoam --token $VAGRANT_CLOUD_TOKEN
 # vagrant cloud auth whoami
