@@ -69,7 +69,11 @@ matrix:
         # - sudo make deploy-vagrant
         - export VAGRANT_BOX_VERSION="0.1"
         - export VAGRANT_BOX_DESCRIPTION="bester"
-        - cd archlinux &&sudo packer build -debug -only=qemu -var-file=local.json vagrant.json
+        - vagrant cloud auth login --token $VAGRANT_CLOUD_TOKEN #Securely authenticate with Vagrant Cloud using a token
+        - vagrant cloud auth whoami
+        - vagrant cloud auth login --check #Check if the current user is authenticated
+        - vagrant cloud auth logout
+        # - cd archlinux &&sudo packer build -debug -only=qemu -var-file=local.json vagrant.json
         # - cd vyos && packer build -var-file=vars.json vyos.json
         # - cd vyos && packer build -debug -var-file=vars.json vyos.json
       after_success:
