@@ -69,7 +69,7 @@ matrix:
         # - sudo make deploy-vagrant
         - export VAGRANT_BOX_VERSION="0.1"
         - export VAGRANT_BOX_DESCRIPTION="bester"
-        - cd vyos && packer build -var-file=vyos.json
+        - cd vyos && packer build -var-file=vars.json vyos.json
       after_success:
         - deactivate
 
