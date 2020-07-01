@@ -7,7 +7,7 @@
         "memory": "1024",
         "cpus": "2",
         "headless": "true",
-        "vagrant_cloud_token": "VAGRANT_CLOUD_TOKEN",
+        "vagrant_cloud_token": "FAKE_TOKENKEY",
         "write_zeroes": "",
         "boot_wait": "60s",
         "mirror": ""
@@ -150,21 +150,21 @@
             {
                 "type": "vagrant-cloud",
                 "only": ["virtualbox-iso"],
-                "access_token": "{{user `VAGRANT_CLOUD_TOKEN`}}",
+                "access_token": "{{user `vagrant_cloud_token`}}",
                 "box_tag": "vagrantfoam/archlinux",
                 "version": "{{isotime \"2020.05.01\"}}"
             },
             {
                 "type": "vagrant-cloud",
                 "only": ["qemu"],
-                "access_token": "{{user `VAGRANT_CLOUD_TOKEN`}}",
+                "access_token": "{{user `vagrant_cloud_token`}}",
                 "box_tag": "vagrantfoam/archlinux",
                 "version": "{{isotime \"2020.05.01\"}}"
             },
             {
                 "type": "vagrant-cloud",
                 "only": ["vmware-iso"],
-                "access_token": "{{user `VAGRANT_CLOUD_TOKEN`}}",
+                "access_token": "{{user `vagrant_cloud_token`}}",
                 "box_tag": "vagrantfoam/archlinux",
                 "version": "{{isotime \"2020.05.01\"}}"
             }

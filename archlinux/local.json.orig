@@ -1,16 +1,16 @@
 {
     "variables": {
-        "iso_url": "http://ftp.cc.uoc.gr/mirrors/linux/archlinux/iso/2020.05.01/archlinux-2020.05.01-x86_64.iso",
-        "iso_checksum_url": "http://ftp.cc.uoc.gr/mirrors/linux/archlinux/iso/2020.05.01/sha1sums.txt",
-        "iso_checksum_type": "sha1",
-        "disk_size": "20480",
-        "memory": "1024",
-        "cpus": "2",
-        "headless": "true",
-        "vagrant_cloud_token": "VAGRANT_CLOUD_TOKEN",
-        "write_zeroes": "",
-        "boot_wait": "60s",
-        "mirror": ""
+
+    "iso_url": "https://mirror.pkgbuild.com/iso/latest/archlinux-{{isotime \"2006.01\"}}.01-x86_64.iso",
+    "iso_checksum_url": "https://mirror.pkgbuild.com/iso/latest/sha1sums.txt",
+    "iso_checksum_type": "sha1",
+    "disk_size": "20480",
+    "memory": "1024",
+    "cpus": "2",
+    "headless": "true",
+    "write_zeroes": "",
+    "boot_wait": "60s",
+    "mirror": ""
     },
     "builders": [
         {
@@ -105,9 +105,9 @@
         {
             "type": "shell",
             "scripts": [
-                "archlinux/provision/postinstall.sh",
-                "archlinux/provision/virtualbox.sh",
-                "archlinux/provision/cleanup.sh"
+                "provision/postinstall.sh",
+                "provision/virtualbox.sh",
+                "provision/cleanup.sh"
             ],
             "execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'",
             "only": ["virtualbox-iso"]
@@ -115,9 +115,9 @@
         {
             "type": "shell",
             "scripts": [
-                "archlinux/provision/postinstall.sh",
-                "archlinux/provision/qemu.sh",
-                "archlinux/provision/cleanup.sh"
+                "provision/postinstall.sh",
+                "provision/qemu.sh",
+                "provision/cleanup.sh"
             ],
             "execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'",
             "only": ["qemu"]
@@ -125,9 +125,9 @@
         {
             "type": "shell",
             "scripts": [
-                "archlinux/provision/postinstall.sh",
-                "archlinux/provision/vmware.sh",
-                "archlinux/provision/cleanup.sh"
+                "provision/postinstall.sh",
+                "provision/vmware.sh",
+                "provision/cleanup.sh"
             ],
             "execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'",
             "only": ["vmware-iso"]
@@ -135,7 +135,7 @@
         {
             "type": "shell",
             "scripts": [
-                "archlinux/provision/write_zeroes.sh"
+                "provision/write_zeroes.sh"
             ],
             "execute_command": "if [ ! -z \"{{user `write_zeroes`}}\" ]; then echo 'vagrant'|sudo -S sh '{{.Path}}'; fi"
         }
@@ -145,28 +145,7 @@
             {
                 "type": "vagrant",
                 "keep_input_artifact": false,
-                "output": "Arch-Linux-x86_64-{{ .Provider }}-{{isotime \"2020.05.01\"}}.box"
-            },
-            {
-                "type": "vagrant-cloud",
-                "only": ["virtualbox-iso"],
-                "access_token": "{{user `VAGRANT_CLOUD_TOKEN`}}",
-                "box_tag": "vagrantfoam/archlinux",
-                "version": "{{isotime \"2020.05.01\"}}"
-            },
-            {
-                "type": "vagrant-cloud",
-                "only": ["qemu"],
-                "access_token": "{{user `VAGRANT_CLOUD_TOKEN`}}",
-                "box_tag": "vagrantfoam/archlinux",
-                "version": "{{isotime \"2020.05.01\"}}"
-            },
-            {
-                "type": "vagrant-cloud",
-                "only": ["vmware-iso"],
-                "access_token": "{{user `VAGRANT_CLOUD_TOKEN`}}",
-                "box_tag": "vagrantfoam/archlinux",
-                "version": "{{isotime \"2020.05.01\"}}"
+                "output": "Arch-Linux-x86_64-{{ .Provider }}-{{isotime \"2006-01-02\"}}.box"
             }
         ]
     ]

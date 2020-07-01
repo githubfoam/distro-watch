@@ -69,8 +69,9 @@ matrix:
         # - sudo make deploy-vagrant
         - export VAGRANT_BOX_VERSION="0.1"
         - export VAGRANT_BOX_DESCRIPTION="bester"
-        - cd vyos && packer build -var-file=vars.json vyos.json
-        - cd vyos && packer build -debug -var-file=vars.json vyos.json        
+        - cd archlinux &&sudo packer build -debug -only=qemu -var-file=local.json vagrant.json
+        # - cd vyos && packer build -var-file=vars.json vyos.json
+        # - cd vyos && packer build -debug -var-file=vars.json vyos.json
       after_success:
         - deactivate
 
