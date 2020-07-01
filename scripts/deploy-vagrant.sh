@@ -19,4 +19,5 @@ vagrant version
 # cd archlinux &&sudo packer build -debug -only=qemu -var-file=local.json vagrant.json
 
 # cd vyos && packer build -var-file=vars.json vyos.json
-cd vyos && packer build -debug -var-file=vars.json vyos.json
+# cd vyos && packer build -debug -var-file=vars.json vyos.json
+cd vyos && packer build -debug vyos.json
