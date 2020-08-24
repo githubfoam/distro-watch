@@ -4,6 +4,9 @@ openindiana solaris windows macos
 Travis (.com) alpine branch:
 [![Build Status](https://travis-ci.com/githubfoam/distro-watch.svg?branch=feature_alpine)](https://travis-ci.com/githubfoam/distro-watch)  
 
+Travis (.com) gentoo branch:
+[![Build Status](https://travis-ci.com/githubfoam/distro-watch.svg?branch=feature_gentoo)](https://travis-ci.com/githubfoam/distro-watch)  
+
 ```
 https://www.gentoo.org/ 
 https://alpinelinux.org/
