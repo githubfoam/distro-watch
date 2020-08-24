@@ -4,6 +4,23 @@ openindiana solaris windows macos
 Travis (.com) alpine branch:
 [![Build Status](https://travis-ci.com/githubfoam/distro-watch.svg?branch=feature_alpine)](https://travis-ci.com/githubfoam/distro-watch)  
 
+Travis (.com) alpine branch:
+[![Build Status](https://travis-ci.com/githubfoam/distro-watch.svg?branch=feature_gentoo)](https://travis-ci.com/githubfoam/distro-watch)  
+
+~~~~
+>vagrant init --template Vagrantfile.provision.bash.generic.erb
+>dir
+>vagrant up "vg-alpine-01"
+
+
+>vagrant destroy -f "vg-alpine-01"
+
+>vagrant global-status
+
+>del Vagrantfile
+>dir
+~~~~
+
 ```
 https://www.gentoo.org/ 
 https://alpinelinux.org/
