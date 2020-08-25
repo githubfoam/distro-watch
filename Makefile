@@ -8,7 +8,4 @@ deploy-libvirt:
 deploy-vagrant:
 	bash scripts/deploy-vagrant.sh
 
-push-image:
-	docker push $(IMAGE)
-
 .PHONY: deploy-vagrant deploy-libvirt 
