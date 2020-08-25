@@ -1,6 +1,9 @@
 # distro-watch
 openindiana solaris windows macos
 
+Travis (.com) branch:
+[![Build Status](https://travis-ci.com/githubfoam/distro-watch.svg?branch=master)](https://travis-ci.com/githubfoam/distro-watch)
+
 Travis (.com) alpine branch:
 [![Build Status](https://travis-ci.com/githubfoam/distro-watch.svg?branch=feature_alpine)](https://travis-ci.com/githubfoam/distro-watch)  
 
