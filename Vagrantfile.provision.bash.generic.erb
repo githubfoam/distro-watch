@@ -14,7 +14,7 @@ Vagrant.configure(2) do |config|
                 k8scluster.vm.box = "generic/alpine39"
                 <%# k8scluster.vm.box_version = "3.0.28" %>
                 k8scluster.vm.hostname = "vg-alpine-01"
-                k8scluster.vm.network "private_network", ip: "192.168.50.14"
+                <%# k8scluster.vm.network "private_network", ip: "192.168.50.14" %>
                 #Disabling the default /vagrant share can be done as follows:
                 k8scluster.vm.synced_folder ".", "/vagrant", disabled: true
                 k8scluster.vm.provider "virtualbox" do |vb|
